@@ -1,6 +1,6 @@
 ## ProofPatch · REGRESSION
 
-`f1f35b1d → 06a57dc0` · 2 changed files · 25 recorded cases
+`4935e701 → 4cb8fad4` · 2 changed files · 25 recorded cases
 
 | Contract | Status | Cases |
 |:--|:--|--:|
@@ -13,4 +13,4 @@
 
 Passing cases are finite evidence, not a proof of correctness.
 
-SHA-256: `8903f8c9f0fc457c56f4f26889089134a443ba958479eca942d92e94d6d881f5`
+SHA-256: `a02dbbf5cfd6e0685946a3d20a23189e12a13c038142de9efd9ca61fa5fa4a98`

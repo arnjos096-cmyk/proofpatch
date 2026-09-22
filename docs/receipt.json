@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "pp-06a57dc0-mucx0eoq",
-  "createdAt": "2026-09-22T16:55:20.666Z",
+  "id": "pp-4cb8fad4-mucx79aq",
+  "createdAt": "2026-09-22T17:00:40.274Z",
   "tool": {
     "name": "proofpatch",
     "version": "0.1.0"
@@ -10,8 +10,8 @@
     "repository": "demo/auth-service",
     "base": "before-optimization",
     "head": "after-optimization",
-    "baseSha": "f1f35b1d30021e63470fe5b81da98c36ac30ccdc",
-    "headSha": "06a57dc08df481d20d0008484478e49ea6b87401",
+    "baseSha": "4935e7015a0311d79e9d68a96bae87fba6b69188",
+    "headSha": "4cb8fad408b564ca1049c39d648290e780f622b8",
     "changes": [
       {
         "path": "auth.ts",
@@ -341,7 +341,7 @@
   "execution": {
     "mode": "local",
     "seed": 42,
-    "durationMs": 3827,
+    "durationMs": 3925,
     "results": [
       {
         "id": "disabled-session",
@@ -356,7 +356,7 @@
         "cases": 2,
         "passed": 1,
         "failed": 1,
-        "durationMs": 360,
+        "durationMs": 361,
         "counterexample": {
           "arguments": [
             false,
@@ -385,7 +385,7 @@
         "cases": 4,
         "passed": 3,
         "failed": 1,
-        "durationMs": 568,
+        "durationMs": 587,
         "counterexample": {
           "arguments": [
             false,
@@ -414,7 +414,7 @@
         "cases": 9,
         "passed": 6,
         "failed": 3,
-        "durationMs": 1264,
+        "durationMs": 1289,
         "counterexample": {
           "arguments": [
             -1
@@ -442,7 +442,7 @@
         "cases": 2,
         "passed": 2,
         "failed": 0,
-        "durationMs": 228
+        "durationMs": 241
       },
       {
         "id": "resource-access",
@@ -456,7 +456,7 @@
         "cases": 4,
         "passed": 4,
         "failed": 0,
-        "durationMs": 444
+        "durationMs": 488
       },
       {
         "id": "delay-type",
@@ -471,7 +471,7 @@
         "cases": 4,
         "passed": 4,
         "failed": 0,
-        "durationMs": 460
+        "durationMs": 462
       }
     ]
   },
@@ -485,7 +485,7 @@
   },
   "integrity": {
     "algorithm": "sha256",
-    "digest": "8903f8c9f0fc457c56f4f26889089134a443ba958479eca942d92e94d6d881f5"
+    "digest": "a02dbbf5cfd6e0685946a3d20a23189e12a13c038142de9efd9ca61fa5fa4a98"
   },
   "limitations": [
     "Static findings and mined candidates are review suggestions, not proof of correctness. No confidence percentage is inferred.",

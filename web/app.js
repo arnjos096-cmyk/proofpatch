@@ -38,9 +38,9 @@
     $('verdict-symbol').textContent = regression ? '!' : passed ? '✓' : '?';
     $('verdict-title').textContent = regression ? `${receipt.summary.failed} behavioral ${receipt.summary.failed === 1 ? 'contract failed' : 'contracts failed'}.` : passed ? 'The checked contracts passed.' : 'This patch needs a closer look.';
     $('verdict-detail').textContent = regression ? 'A reproducing input changes the story. Inspect it before you merge.' : receipt.execution.mode === 'static' ? 'Static analysis only. No target code or behavioral checks were executed.' : passed ? 'The declared cases passed. Behavior beyond this finite input domain remains unverified.' : `${receipt.summary.skipped} incomplete checks; ${receipt.analysis.findings.filter(f => f.severity !== 'info').length} static warnings. Review the evidence and its limits.`;
+    $('contract-search').value = ''; $('candidate-search').value = '';
     renderSpotlight(); renderTimeline(); renderContracts(); renderFiles(); renderFindings(); renderGraph(); renderCandidates(); renderIntegrity();
     document.querySelectorAll('#contract-filters button').forEach(b => b.classList.toggle('selected', b.dataset.filter === 'all'));
-    $('contract-search').value = ''; $('candidate-search').value = '';
     navigate(location.hash.slice(1));
   }
   function renderSpotlight() {

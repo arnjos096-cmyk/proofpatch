@@ -110,7 +110,7 @@ async function observe(directory: string, file: string, name: string, args: Json
   const argv = docker ? ['run', '--rm', '--pull=never', '--name', container, '--network=none', '--read-only', '--cap-drop=ALL', '--security-opt=no-new-privileges', '--pids-limit=32', '--memory=128m', '--cpus=1', '--user=65534:65534', '--mount', `type=bind,src=${directory},dst=/work,readonly`, '--workdir=/work', '-i', options.dockerImage || 'node:22-alpine', 'node', '--max-old-space-size=64', '/work/worker.mjs'] : ['--max-old-space-size=96', path.join(directory, 'worker.mjs')];
   return new Promise(resolve => {
     let finished = false, stdout = '', stderr = '', bytes = 0;
-    const child = spawn(command, argv, { cwd: directory, detached: !docker && process.platform !== 'win32', env: { PATH: process.env.PATH || '/usr/bin:/bin', ...(process.platform === 'win32' ? { SystemRoot: process.env.SystemRoot } : {}), NODE_NO_WARNINGS: '1' }, stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(command, argv, { cwd: directory, detached: !docker && process.platform !== 'win32', env: docker ? process.env : { PATH: process.env.PATH || '/usr/bin:/bin', ...(process.platform === 'win32' ? { SystemRoot: process.env.SystemRoot } : {}), NODE_NO_WARNINGS: '1' }, stdio: ['pipe', 'pipe', 'pipe'] });
     const kill = () => { try { if (!docker && process.platform !== 'win32' && child.pid) process.kill(-child.pid, 'SIGKILL'); else child.kill('SIGKILL'); } catch { /* already exited */ } };
     const finish = (observation: Observation) => {
       if (finished) return; finished = true; clearTimeout(timer); kill();
