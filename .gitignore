@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.proofpatch/
+coverage/
+*.tgz
+.DS_Store
+*.pem
+.env*
+!.env.example

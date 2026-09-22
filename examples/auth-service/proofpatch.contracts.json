@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "contracts": [
+    { "id": "disabled-session", "title": "Disabled accounts cannot refresh a session", "file": "auth.ts", "export": "canRefresh", "arguments": [[false], [false, true]], "oracle": { "kind": "equals", "value": false } },
+    { "id": "auth-compatibility", "title": "Authentication decisions preserve existing behavior", "file": "auth.ts", "export": "canRefresh", "arguments": [[false, true], [false, true]], "oracle": { "kind": "preserve" } },
+    { "id": "retry-bounds", "title": "Retry delays preserve the established bounds", "file": "policy.ts", "export": "retryDelay", "arguments": [[-100, -10, -1, 0, 1, 2, 30, 31, 100]], "oracle": { "kind": "preserve" } },
+    { "id": "role-labels", "title": "Role labels remain stable", "file": "auth.ts", "export": "sessionLabel", "arguments": [["admin", "member"]], "oracle": { "kind": "preserve" } },
+    { "id": "resource-access", "title": "Resource authorization survives a safe refactor", "file": "policy.ts", "export": "isAllowed", "arguments": [["admin", "member"], [false, true]], "oracle": { "kind": "preserve" } },
+    { "id": "delay-type", "title": "Retry delay returns a number", "file": "policy.ts", "export": "retryDelay", "arguments": [[0, 1, 10, 30]], "oracle": { "kind": "type", "value": "number" } }
+  ]
+}

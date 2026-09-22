@@ -1,0 +1,27 @@
+{
+  "name": "proofpatch",
+  "version": "0.1.0",
+  "description": "Turn Git diffs into executable behavioral evidence and interactive patch receipts.",
+  "type": "module",
+  "bin": { "proofpatch": "dist/cli.js" },
+  "exports": "./dist/index.js",
+  "files": ["dist", "web", "examples", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "npm run typecheck && npm test && npm run build",
+    "demo": "tsx src/cli.ts demo --serve",
+    "demo:generate": "tsx src/cli.ts demo",
+    "start": "tsx src/cli.ts serve",
+    "proofpatch": "tsx src/cli.ts",
+    "prepack": "npm run build"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": { "esbuild": "^0.25.0", "typescript": "^5.9.0" },
+  "devDependencies": { "@types/node": "^22.0.0", "tsx": "^4.20.0" },
+  "license": "MIT",
+  "author": "Arnav Joshi",
+  "repository": { "type": "git", "url": "https://github.com/arnjos096-cmyk/proofpatch.git" },
+  "keywords": ["git", "testing", "typescript", "developer-tools", "differential-testing", "code-review"]
+}

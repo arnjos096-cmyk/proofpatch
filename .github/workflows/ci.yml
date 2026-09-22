@@ -1,0 +1,30 @@
+name: Evidence checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run demo:generate
+      - run: node dist/cli.js verify .proofpatch/receipt.json
+      - name: Verify the demo catches the intended regressions
+        run: node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; const r=JSON.parse(fs.readFileSync('.proofpatch/receipt.json')); assert.equal(r.summary.failed,3); assert.equal(r.summary.passed,3); assert.equal(r.summary.skipped,0);"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: proofpatch-demo-node-${{ matrix.node }}
+          path: .proofpatch/
+          include-hidden-files: true

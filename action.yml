@@ -1,0 +1,54 @@
+name: ProofPatch evidence
+description: Analyze a Git diff and publish an interactive behavioral receipt as a workflow artifact.
+branding:
+  icon: shield
+  color: green
+inputs:
+  base:
+    description: Base commit or ref, available in the checkout
+    required: true
+  head:
+    description: Head commit or ref
+    default: HEAD
+  contracts:
+    description: Optional reviewed contract JSON path
+    default: ''
+  execute:
+    description: Empty for static analysis, local only for code you trust, or docker
+    default: ''
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - shell: bash
+      env:
+        PROOFPATCH_ACTION: ${{ github.action_path }}
+      run: |
+        cd "$PROOFPATCH_ACTION"
+        npm ci
+        npm run build
+    - shell: bash
+      env:
+        PROOFPATCH_ACTION: ${{ github.action_path }}
+        PP_BASE: ${{ inputs.base }}
+        PP_HEAD: ${{ inputs.head }}
+        PP_CONTRACTS: ${{ inputs.contracts }}
+        PP_EXECUTE: ${{ inputs.execute }}
+      run: |
+        args=(inspect --repo "$GITHUB_WORKSPACE" --base "$PP_BASE" --head "$PP_HEAD" --out "$RUNNER_TEMP/proofpatch")
+        if [[ -n "$PP_CONTRACTS" ]]; then args+=(--contracts "$PP_CONTRACTS"); fi
+        if [[ -n "$PP_EXECUTE" ]]; then args+=(--execute "$PP_EXECUTE"); fi
+        node "$PROOFPATCH_ACTION/dist/cli.js" "${args[@]}"
+    - if: always()
+      shell: bash
+      run: |
+        if [[ -f "$RUNNER_TEMP/proofpatch/summary.md" ]]; then
+          cat "$RUNNER_TEMP/proofpatch/summary.md" >> "$GITHUB_STEP_SUMMARY"
+        fi
+    - if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: proofpatch-receipt
+        path: ${{ runner.temp }}/proofpatch/
